@@ -1,0 +1,13 @@
+span {
+	padding: 0 10px 0 0;
+}
+button {
+	margin: 10px;
+}
+.form div{
+	margin: 5px;
+}
+.form {
+    border: 1px solid #000;
+    margin: 5px;
+}
