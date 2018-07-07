@@ -66,57 +66,39 @@ Form.prototype.getFormData = function() {
         if (tmp && tmp.name) {
             result[tmp.name] = tmp.value;
         }
-    }
-    return result;
-}
-Form.prototype.validator = function() {
-    var trueQuantity = 0;
-    var totalQuantity = 0;
-    for (var i = 0; i < this.items.length; i++) {
-        if (this.items[i].type == "text" && this.items[i].id == "email") {
-            this.email = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-            this.match = this.items[i].getValue().value.match(this.email);
-            if (this.match){
-                trueQuantity++;
-            } else {
-                alert("Email is not correct");
-                return false;
-            }
-        } else if (this.items[i].type == "text" && this.items[i].id == "num") {
-            this.num = "[0-9]";
-            this.match = this.items[i].getValue().value.match(this.num);
-            if (this.match && this.items[i].getValue().value <= 100) {
-                trueQuantity++;
-            } else {
-                alert("Number is not correct");
-                return false;
-            }
-        }
-        if (this.items[i].type == "text") {
-            totalQuantity++
-        }
-    }
-    if (totalQuantity == trueQuantity) {
-        return true;
-    }
+        return result;            
+    }  
 }
 Form.prototype.send = function() {
     var self = this;
+    var countTrue = 0;
+    var countInput = 0;
+    var check = function() {
+        this.validator();
+    }
     var data = this.getFormData();
-    var check = this.validator();
-    if (check == true) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', this.targetUrl);
-        xhr.setRequestHeader("Content-type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState !== XMLHttpRequest.DONE) return;
-            if(xhr.status != 200) {
-                alert(xhr.status);
-            } else {
-                alert("Responce: " + xhr.responseText);
-                self.reset();
-            };
-        };
-        xhr.send(JSON.stringify(data));
+    var xhr = new XMLHttpRequest();
+    for (var i = 0; i < this.items.length; i++) {
+        countAll++
+        if (this.items[i].validator) {
+            check = this.items[i].validator();
+            if (check == true) {
+                count++
+                if (count == countAll) {
+                    xhr.open('POST', this.targetUrl);
+                    xhr.setRequestHeader("Content-type", "application/json");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+                        if(xhr.status != 200) {
+                            alert(xhr.status);
+                        } else {
+                            alert("Responce: " + xhr.responseText);
+                            self.reset();
+                        };
+                    };
+                    xhr.send(JSON.stringify(data));
+                }
+            }
+        }
     }
 }

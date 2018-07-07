@@ -23,6 +23,7 @@ var num = new Input({
     value: "90",
     label: "Enter number (0-100)"
 })
+
 var email = new Input({
     id: "email",
     name: "email",
