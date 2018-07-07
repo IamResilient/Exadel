@@ -21,7 +21,7 @@ var num = new Input({
     name: "num",
     type: "text",
     value: "90",
-    label: "Enter number (0-100)"
+    label: "Enter number (0-100)",
 })
 
 var email = new Input({
@@ -29,7 +29,7 @@ var email = new Input({
     name: "email",
     type: "text",
     value: "address@gmail.com",
-    label: "Enter address"
+    label: "Enter address",
 })
 
 var sex = new Select({

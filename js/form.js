@@ -72,18 +72,18 @@ Form.prototype.getFormData = function() {
 Form.prototype.send = function() {
     var self = this;
     var countTrue = 0;
-    var countInput = 0;
+    var countInput = 2;
     var check = function() {
         this.validator();
     }
     var data = this.getFormData();
     var xhr = new XMLHttpRequest();
     for (var i = 0; i < this.items.length; i++) {
-        countInput++
         if (this.items[i].validator) {
             check = this.items[i].validator();
             if (check == true) {
                 countTrue++
+                console.log(countTrue, countInput)
                 if (countTrue == countInput) {
                     xhr.open('POST', this.targetUrl);
                     xhr.setRequestHeader("Content-type", "application/json");

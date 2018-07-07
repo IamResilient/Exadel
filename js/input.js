@@ -45,7 +45,7 @@ Input.prototype.validator = function() {
             } else {
                 this.span = document.createElement('span');
                 this.span.style.color = "red"
-                this.span.innerHTML = 'Email is not correct!';
+                this.span.innerHTML = 'Number is not correct!';
                 this.targetDomElement.after(this.span);
             }   
             return false;
