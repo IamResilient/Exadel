@@ -79,12 +79,12 @@ Form.prototype.send = function() {
     var data = this.getFormData();
     var xhr = new XMLHttpRequest();
     for (var i = 0; i < this.items.length; i++) {
-        countAll++
+        countInput++
         if (this.items[i].validator) {
             check = this.items[i].validator();
             if (check == true) {
-                count++
-                if (count == countAll) {
+                countTrue++
+                if (countTrue == countInput) {
                     xhr.open('POST', this.targetUrl);
                     xhr.setRequestHeader("Content-type", "application/json");
                     xhr.onreadystatechange = function () {
